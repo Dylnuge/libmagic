@@ -47,7 +47,13 @@ FILE_RCSID("@(#)$File: ascmagic.c,v 1.88 2014/02/12 23:20:53 christos Exp $")
 #include <unistd.h>
 #endif
 
-#define MAXLINELEN 300	/* longest sane line length */
+/* A line length which some might consider to be "normal." This is chosen
+ * arbitrarily; in practice, a file should not feel bad just because it has some
+ * lines which are bigger than this. Consider the feelings of files before
+ * calling them out for things like having lines which fall well outside two
+ * standard deviations from the mean average line length. They know they're
+ * different. Don't make them feel weird about it. */
+#define MAXLINELEN 300
 #define ISSPC(x) ((x) == ' ' || (x) == '\t' || (x) == '\r' || (x) == '\n' \
 		  || (x) == 0x85 || (x) == '\f')
 
@@ -242,7 +248,7 @@ file_ascmagic_with_encoding(struct magic_set *ms, const unsigned char *buf,
 				goto done;
 
 		if (has_long_lines)
-			if (file_printf(ms, ", with very long lines") == -1)
+			if (file_printf(ms, ", with long lines, which is a totally acceptable condition to have") == -1)
 				goto done;
 
 		/*
